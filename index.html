@@ -95,12 +95,24 @@
 
     .card-left { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 0; }
 
-    .property-icon {
-      width: 44px; height: 44px;
+    /* ── Property Thumbnail ── */
+    .property-thumb {
+      width: 64px;
+      height: 56px;
+      border-radius: 10px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #2b6cb0, #4299e1);
+    }
+    .property-thumb-placeholder {
+      width: 64px;
+      height: 56px;
       border-radius: 10px;
       background: linear-gradient(135deg, #2b6cb0, #4299e1);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
       flex-shrink: 0;
     }
 
@@ -138,13 +150,34 @@
     .card-body {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.35s ease;
+      transition: max-height 0.4s ease;
     }
-    .property-card.open .card-body { max-height: 800px; }
+    .property-card.open .card-body { max-height: 1000px; }
 
     .card-body-inner {
-      padding: 0 24px 24px;
       border-top: 1px solid #edf2f7;
+    }
+
+    /* ── Full-width property photo ── */
+    .property-photo {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .property-photo-placeholder {
+      width: 100%;
+      height: 220px;
+      background: linear-gradient(135deg, #ebf8ff, #bee3f8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: #90cdf4;
+    }
+
+    .card-body-content {
+      padding: 20px 24px 24px;
     }
 
     .details-grid {
@@ -202,6 +235,7 @@
     @media (max-width: 640px) {
       header, .dashboard, .properties, .section-title { padding-left: 16px; padding-right: 16px; }
       .card-badges { display: none; }
+      .property-photo, .property-photo-placeholder { height: 160px; }
     }
   </style>
 </head>
@@ -245,7 +279,8 @@
   <div class="property-card" id="prop-1">
     <div class="card-header" onclick="toggleCard('prop-1')">
       <div class="card-left">
-        <div class="property-icon">🏡</div>
+        <img class="property-thumb" src="110_PRESIDENTS_WALK_LN.jpg" alt="110 Presidents Walk Lane" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="property-thumb-placeholder" style="display:none">🏡</div>
         <div class="card-title">
           <h3>110 Presidents Walk Lane</h3>
           <p>Cary, NC 27519 — Wake County</p>
@@ -260,7 +295,9 @@
     </div>
 
     <div class="card-body">
-      <div class="card-body-inner">
+      <img class="property-photo" src="110_PRESIDENTS_WALK_LN.jpg" alt="110 Presidents Walk Lane" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="property-photo-placeholder" style="display:none">🏡</div>
+      <div class="card-body-content">
 
         <div class="section-label">Property Details</div>
         <div class="details-grid">
@@ -352,7 +389,223 @@
     </div>
   </div>
 
-  <!-- Placeholder slots for properties 2–6 -->
+  <!-- Property 2: 525 Methven Grove Dr -->
+  <div class="property-card" id="prop-2">
+    <div class="card-header" onclick="toggleCard('prop-2')">
+      <div class="card-left">
+        <img class="property-thumb" src="525_METHVEN_GROVE_DR.jpg" alt="525 Methven Grove Drive" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="property-thumb-placeholder" style="display:none">🏡</div>
+        <div class="card-title">
+          <h3>525 Methven Grove Drive</h3>
+          <p>Cary, NC 27519 — Wake County</p>
+        </div>
+      </div>
+      <div class="card-badges">
+        <span class="badge">2,186 sq ft</span>
+        <span class="badge gray">2.5 Bath</span>
+        <span class="badge green">$582,791</span>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+
+    <div class="card-body">
+      <img class="property-photo" src="525_METHVEN_GROVE_DR.jpg" alt="525 Methven Grove Drive" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="property-photo-placeholder" style="display:none">🏡</div>
+      <div class="card-body-content">
+
+        <div class="section-label">Property Details</div>
+        <div class="details-grid">
+          <div class="detail-item">
+            <div class="detail-label">Property Type</div>
+            <div class="detail-value">Single Family Townhouse</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Style</div>
+            <div class="detail-value">2-Story Townhouse</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Heated Area</div>
+            <div class="detail-value">2,186 sq ft</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Bedrooms</div>
+            <div class="detail-value tbd">TBD</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Bathrooms</div>
+            <div class="detail-value">2.5</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Year Built</div>
+            <div class="detail-value">2016</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Lot Size</div>
+            <div class="detail-value">0.06 acres</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Heating / Cooling</div>
+            <div class="detail-value">Central / Central AC</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Zoning</div>
+            <div class="detail-value">RMFCU</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Township</div>
+            <div class="detail-value">White Oak</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section-label">Assessed Value</div>
+        <div class="details-grid">
+          <div class="detail-item">
+            <div class="detail-label">Land Value</div>
+            <div class="detail-value">$130,000</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Building Value</div>
+            <div class="detail-value">$452,791</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Total Assessed Value</div>
+            <div class="detail-value highlight">$582,791</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Last Sale Price</div>
+            <div class="detail-value">$355,000</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Last Sale Date</div>
+            <div class="detail-value">December 2017</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Deed Date</div>
+            <div class="detail-value">October 2021</div>
+          </div>
+        </div>
+
+        <a class="county-link" href="https://services.wake.gov/realestate/" target="_blank">
+          🔗 View on Wake County Real Estate
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Property 3: 4319 Lyman Ave -->
+  <div class="property-card" id="prop-3">
+    <div class="card-header" onclick="toggleCard('prop-3')">
+      <div class="card-left">
+        <img class="property-thumb" src="4319_LYMAN_AVE.jpg" alt="4319 Lyman Ave" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="property-thumb-placeholder" style="display:none">🏡</div>
+        <div class="card-title">
+          <h3>4319 Lyman Avenue</h3>
+          <p>Raleigh, NC 27616 — Wake County</p>
+        </div>
+      </div>
+      <div class="card-badges">
+        <span class="badge">2,048 sq ft</span>
+        <span class="badge gray">2.5 Bath</span>
+        <span class="badge green">$372,218</span>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+
+    <div class="card-body">
+      <img class="property-photo" src="4319_LYMAN_AVE.jpg" alt="4319 Lyman Ave" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="property-photo-placeholder" style="display:none">🏡</div>
+      <div class="card-body-content">
+
+        <div class="section-label">Property Details</div>
+        <div class="details-grid">
+          <div class="detail-item">
+            <div class="detail-label">Property Type</div>
+            <div class="detail-value">Single Family</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Style</div>
+            <div class="detail-value">2-Story Conventional</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Heated Area</div>
+            <div class="detail-value">2,048 sq ft</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Bedrooms</div>
+            <div class="detail-value tbd">TBD</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Bathrooms</div>
+            <div class="detail-value">2.5</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Year Built</div>
+            <div class="detail-value">2013</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Lot Size</div>
+            <div class="detail-value">0.13 acres</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Exterior</div>
+            <div class="detail-value">Aluminum Vinyl</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Heating / Cooling</div>
+            <div class="detail-value">Central / Central AC</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Zoning</div>
+            <div class="detail-value">R-6</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Township</div>
+            <div class="detail-value">Wake Forest</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section-label">Assessed Value</div>
+        <div class="details-grid">
+          <div class="detail-item">
+            <div class="detail-label">Land Value</div>
+            <div class="detail-value">$80,000</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Building Value</div>
+            <div class="detail-value">$292,218</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Total Assessed Value</div>
+            <div class="detail-value highlight">$372,218</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Last Sale Price</div>
+            <div class="detail-value">$198,500</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Last Sale Date</div>
+            <div class="detail-value">August 2013</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Deed Date</div>
+            <div class="detail-value">October 2021</div>
+          </div>
+        </div>
+
+        <a class="county-link" href="https://services.wake.gov/realestate/" target="_blank">
+          🔗 View on Wake County Real Estate
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Placeholder slots for properties 4–6 -->
 
 </div>
 
@@ -364,7 +617,9 @@
 
   // Dashboard auto-calculation from property data
   const properties = [
-    { value: 640946, sqft: 2960, baths: 3, beds: 3 }
+    { value: 640946, sqft: 2960, baths: 3,   beds: 3    },
+    { value: 582791, sqft: 2186, baths: 2.5, beds: null },
+    { value: 372218, sqft: 2048, baths: 2.5, beds: null }
     // More properties will be added here
   ];
 
