@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bobba Rental Portfolio</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f2f5;
+      color: #2d3748;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1a365d, #2b6cb0);
+      color: white;
+      padding: 32px 40px;
+    }
+    header h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; }
+    header p { margin-top: 6px; opacity: 0.8; font-size: 0.95rem; }
+
+    /* ── Dashboard ── */
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      padding: 28px 40px 8px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      border-left: 4px solid #2b6cb0;
+    }
+    .stat-card .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #718096;
+      margin-bottom: 6px;
+    }
+    .stat-card .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1a365d;
+    }
+    .stat-card .sub {
+      font-size: 0.78rem;
+      color: #a0aec0;
+      margin-top: 2px;
+    }
+
+    /* ── Properties Section ── */
+    .section-title {
+      padding: 24px 40px 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #4a5568;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .properties {
+      padding: 0 40px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* ── Property Card ── */
+    .property-card {
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .property-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      cursor: pointer;
+      user-select: none;
+      gap: 16px;
+    }
+    .card-header:hover { background: #f7fafc; }
+
+    .card-left { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 0; }
+
+    .property-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #2b6cb0, #4299e1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .card-title { min-width: 0; }
+    .card-title h3 { font-size: 1rem; font-weight: 600; color: #1a365d; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .card-title p { font-size: 0.82rem; color: #718096; margin-top: 2px; }
+
+    .card-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+    .badge {
+      background: #ebf8ff;
+      color: #2b6cb0;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .badge.green { background: #f0fff4; color: #276749; }
+    .badge.gray  { background: #edf2f7; color: #4a5568; }
+
+    .toggle-icon {
+      font-size: 1.1rem;
+      color: #a0aec0;
+      transition: transform 0.25s;
+      flex-shrink: 0;
+    }
+    .property-card.open .toggle-icon { transform: rotate(180deg); }
+
+    /* ── Expandable Details ── */
+    .card-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .property-card.open .card-body { max-height: 800px; }
+
+    .card-body-inner {
+      padding: 0 24px 24px;
+      border-top: 1px solid #edf2f7;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .detail-item .detail-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #a0aec0;
+      margin-bottom: 4px;
+    }
+    .detail-item .detail-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #2d3748;
+    }
+    .detail-item .detail-value.highlight { color: #2b6cb0; }
+
+    .divider {
+      height: 1px;
+      background: #edf2f7;
+      margin: 20px 0;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #718096;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .county-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      font-size: 0.82rem;
+      color: #2b6cb0;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .county-link:hover { text-decoration: underline; }
+
+    /* ── TBD placeholder ── */
+    .tbd { color: #a0aec0; font-style: italic; font-weight: 400; }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      header, .dashboard, .properties, .section-title { padding-left: 16px; padding-right: 16px; }
+      .card-badges { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🏠 Rental Property Portfolio</h1>
+  <p>Bobba Family — Personal Property Overview</p>
+</header>
+
+<!-- ── Dashboard Summary ── -->
+<div class="dashboard" id="dashboard">
+  <div class="stat-card">
+    <div class="label">Total Properties</div>
+    <div class="value" id="stat-count">1</div>
+    <div class="sub">across NC</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Total Assessed Value</div>
+    <div class="value" id="stat-value">$640,946</div>
+    <div class="sub">combined portfolio</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Total Heated Sq Ft</div>
+    <div class="value" id="stat-sqft">2,960</div>
+    <div class="sub">across all properties</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Total Bathrooms</div>
+    <div class="value" id="stat-baths">3</div>
+    <div class="sub">across all properties</div>
+  </div>
+</div>
+
+<div class="section-title">Properties</div>
+
+<!-- ── Property Cards ── -->
+<div class="properties" id="properties-list">
+
+  <!-- Property 1: 110 Presidents Walk Ln -->
+  <div class="property-card" id="prop-1">
+    <div class="card-header" onclick="toggleCard('prop-1')">
+      <div class="card-left">
+        <div class="property-icon">🏡</div>
+        <div class="card-title">
+          <h3>110 Presidents Walk Lane</h3>
+          <p>Cary, NC 27519 — Wake County</p>
+        </div>
+      </div>
+      <div class="card-badges">
+        <span class="badge">2,960 sq ft</span>
+        <span class="badge gray">3 bed / 3 bath</span>
+        <span class="badge green">$640,946</span>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+
+    <div class="card-body">
+      <div class="card-body-inner">
+
+        <div class="section-label">Property Details</div>
+        <div class="details-grid">
+          <div class="detail-item">
+            <div class="detail-label">Property Type</div>
+            <div class="detail-value">Single Family</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Style</div>
+            <div class="detail-value">2-Story Conventional</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Heated Area</div>
+            <div class="detail-value">2,960 sq ft</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Bedrooms</div>
+            <div class="detail-value">3</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Bathrooms</div>
+            <div class="detail-value">3</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Year Built</div>
+            <div class="detail-value">2006</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Lot Size</div>
+            <div class="detail-value">0.13 acres</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Basement</div>
+            <div class="detail-value">Crawl Space</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Heating / Cooling</div>
+            <div class="detail-value">Central / Central AC</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Fireplace</div>
+            <div class="detail-value">1 Fireplace</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Zoning</div>
+            <div class="detail-value">RMFP</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Township</div>
+            <div class="detail-value">Cedar Fork</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section-label">Assessed Value</div>
+        <div class="details-grid">
+          <div class="detail-item">
+            <div class="detail-label">Land Value</div>
+            <div class="detail-value">$140,000</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Building Value</div>
+            <div class="detail-value">$500,946</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Total Assessed Value</div>
+            <div class="detail-value highlight">$640,946</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Last Sale Price</div>
+            <div class="detail-value">$331,000</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Last Sale Date</div>
+            <div class="detail-value">June 2006</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Deed Date</div>
+            <div class="detail-value">September 2024</div>
+          </div>
+        </div>
+
+        <a class="county-link" href="https://services.wake.gov/realestate/Account.asp?id=0331784" target="_blank">
+          🔗 View on Wake County Real Estate
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Placeholder slots for properties 2–6 -->
+
+</div>
+
+<script>
+  function toggleCard(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('open');
+  }
+
+  // Dashboard auto-calculation from property data
+  const properties = [
+    { value: 640946, sqft: 2960, baths: 3, beds: 3 }
+    // More properties will be added here
+  ];
+
+  function updateDashboard() {
+    const count = properties.length;
+    const totalValue = properties.reduce((s, p) => s + p.value, 0);
+    const totalSqft  = properties.reduce((s, p) => s + p.sqft, 0);
+    const totalBaths = properties.reduce((s, p) => s + p.baths, 0);
+
+    document.getElementById('stat-count').textContent = count;
+    document.getElementById('stat-value').textContent = '$' + totalValue.toLocaleString();
+    document.getElementById('stat-sqft').textContent  = totalSqft.toLocaleString();
+    document.getElementById('stat-baths').textContent = totalBaths;
+  }
+
+  updateDashboard();
+</script>
+
+</body>
+</html>
