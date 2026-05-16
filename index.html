@@ -17,10 +17,35 @@
     header {
       background: linear-gradient(135deg, #1a365d, #2b6cb0);
       color: white;
-      padding: 32px 40px;
+      padding: 32px 40px 0;
     }
     header h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; }
     header p { margin-top: 6px; opacity: 0.8; font-size: 0.95rem; }
+
+    /* ── Tabs ── */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      margin-top: 24px;
+      padding: 0 40px;
+    }
+    .tab-btn {
+      background: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.75);
+      border: none;
+      padding: 10px 24px;
+      border-radius: 10px 10px 0 0;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .tab-btn:hover { background: rgba(255,255,255,0.25); color: white; }
+    .tab-btn.active { background: #f0f2f5; color: #1a365d; }
+
+    /* ── Tab Content ── */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
 
     /* ── Dashboard ── */
     .dashboard {
@@ -95,24 +120,12 @@
 
     .card-left { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 0; }
 
-    /* ── Property Thumbnail ── */
+    /* ── Street View Thumbnail ── */
     .property-thumb {
-      width: 64px;
+      width: 72px;
       height: 56px;
       border-radius: 10px;
       object-fit: cover;
-      flex-shrink: 0;
-      background: linear-gradient(135deg, #2b6cb0, #4299e1);
-    }
-    .property-thumb-placeholder {
-      width: 64px;
-      height: 56px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #2b6cb0, #4299e1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
       flex-shrink: 0;
     }
 
@@ -137,6 +150,7 @@
     }
     .badge.green { background: #f0fff4; color: #276749; }
     .badge.gray  { background: #edf2f7; color: #4a5568; }
+    .badge.purple { background: #faf5ff; color: #6b46c1; }
 
     .toggle-icon {
       font-size: 1.1rem;
@@ -152,31 +166,10 @@
       overflow: hidden;
       transition: max-height 0.4s ease;
     }
-    .property-card.open .card-body { max-height: 1000px; }
+    .property-card.open .card-body { max-height: 900px; }
 
     .card-body-inner {
       border-top: 1px solid #edf2f7;
-    }
-
-    /* ── Full-width property photo ── */
-    .property-photo {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      display: block;
-    }
-    .property-photo-placeholder {
-      width: 100%;
-      height: 220px;
-      background: linear-gradient(135deg, #ebf8ff, #bee3f8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      color: #90cdf4;
-    }
-
-    .card-body-content {
       padding: 20px 24px 24px;
     }
 
@@ -200,6 +193,7 @@
       color: #2d3748;
     }
     .detail-item .detail-value.highlight { color: #2b6cb0; }
+    .detail-item .detail-value.market { color: #276749; }
 
     .divider {
       height: 1px;
@@ -228,14 +222,87 @@
     }
     .county-link:hover { text-decoration: underline; }
 
-    /* ── TBD placeholder ── */
     .tbd { color: #a0aec0; font-style: italic; font-weight: 400; }
+
+    /* ── Media Gallery ── */
+    .gallery-section {
+      padding: 28px 40px 48px;
+    }
+    .gallery-property {
+      margin-bottom: 40px;
+    }
+    .gallery-property-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a365d;
+      margin-bottom: 4px;
+    }
+    .gallery-property-sub {
+      font-size: 0.82rem;
+      color: #718096;
+      margin-bottom: 14px;
+    }
+    .gallery-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      scrollbar-width: thin;
+      scrollbar-color: #cbd5e0 transparent;
+    }
+    .gallery-scroll::-webkit-scrollbar { height: 6px; }
+    .gallery-scroll::-webkit-scrollbar-thumb { background: #cbd5e0; border-radius: 4px; }
+    .gallery-img {
+      width: 240px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-img:hover { transform: scale(1.02); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+    .gallery-placeholder {
+      width: 240px;
+      height: 160px;
+      border-radius: 10px;
+      background: #edf2f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #a0aec0;
+      font-size: 0.82rem;
+      text-align: center;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 85vh; border-radius: 8px; object-fit: contain; }
+    .lightbox-close {
+      position: absolute;
+      top: 20px; right: 28px;
+      color: white; font-size: 2rem;
+      cursor: pointer; line-height: 1;
+    }
 
     /* ── Responsive ── */
     @media (max-width: 640px) {
-      header, .dashboard, .properties, .section-title { padding-left: 16px; padding-right: 16px; }
+      header { padding: 24px 16px 0; }
+      .tabs { padding: 0 16px; }
+      .dashboard, .properties, .section-title, .gallery-section { padding-left: 16px; padding-right: 16px; }
       .card-badges { display: none; }
-      .property-photo, .property-photo-placeholder { height: 160px; }
     }
   </style>
 </head>
@@ -244,395 +311,296 @@
 <header>
   <h1>🏠 Rental Property Portfolio</h1>
   <p>Bobba Family — Personal Property Overview</p>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('properties')">Properties</button>
+    <button class="tab-btn" onclick="switchTab('gallery')">Media Gallery</button>
+  </div>
 </header>
 
-<!-- ── Dashboard Summary ── -->
-<div class="dashboard" id="dashboard">
-  <div class="stat-card">
-    <div class="label">Total Properties</div>
-    <div class="value" id="stat-count">1</div>
-    <div class="sub">across NC</div>
+<!-- ══════════════════ PROPERTIES TAB ══════════════════ -->
+<div id="tab-properties" class="tab-content active">
+
+  <!-- Dashboard -->
+  <div class="dashboard">
+    <div class="stat-card">
+      <div class="label">Total Properties</div>
+      <div class="value" id="stat-count">—</div>
+      <div class="sub">across NC</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Total Assessed Value</div>
+      <div class="value" id="stat-assessed">—</div>
+      <div class="sub">county assessed</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Total Market Value</div>
+      <div class="value" id="stat-market">—</div>
+      <div class="sub">Zillow Zestimate</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Total Heated Sq Ft</div>
+      <div class="value" id="stat-sqft">—</div>
+      <div class="sub">across all properties</div>
+    </div>
   </div>
-  <div class="stat-card">
-    <div class="label">Total Assessed Value</div>
-    <div class="value" id="stat-value">$640,946</div>
-    <div class="sub">combined portfolio</div>
-  </div>
-  <div class="stat-card">
-    <div class="label">Total Heated Sq Ft</div>
-    <div class="value" id="stat-sqft">2,960</div>
-    <div class="sub">across all properties</div>
-  </div>
-  <div class="stat-card">
-    <div class="label">Total Bathrooms</div>
-    <div class="value" id="stat-baths">3</div>
-    <div class="sub">across all properties</div>
+
+  <div class="section-title">Properties</div>
+
+  <div class="properties" id="properties-list">
+
+    <!-- ── Property 1: 110 Presidents Walk Ln ── -->
+    <div class="property-card" id="prop-1">
+      <div class="card-header" onclick="toggleCard('prop-1')">
+        <div class="card-left">
+          <img class="property-thumb"
+            src="https://maps.googleapis.com/maps/api/streetview?size=144x112&location=110+Presidents+Walk+Ln,Cary,NC+27519&fov=80&heading=70&pitch=0&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ"
+            alt="110 Presidents Walk Lane">
+          <div class="card-title">
+            <h3>110 Presidents Walk Lane</h3>
+            <p>Cary, NC 27519 — Wake County</p>
+          </div>
+        </div>
+        <div class="card-badges">
+          <span class="badge">2,960 sq ft</span>
+          <span class="badge gray">3 bed / 2.5 bath</span>
+          <span class="badge green">$687,500</span>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="card-body-inner">
+          <div class="section-label">Property Details</div>
+          <div class="details-grid">
+            <div class="detail-item"><div class="detail-label">Property Type</div><div class="detail-value">Single Family</div></div>
+            <div class="detail-item"><div class="detail-label">Style</div><div class="detail-value">2-Story Conventional</div></div>
+            <div class="detail-item"><div class="detail-label">Heated Area</div><div class="detail-value">2,960 sq ft</div></div>
+            <div class="detail-item"><div class="detail-label">Bedrooms</div><div class="detail-value">3</div></div>
+            <div class="detail-item"><div class="detail-label">Bathrooms</div><div class="detail-value">2.5</div></div>
+            <div class="detail-item"><div class="detail-label">Year Built</div><div class="detail-value">2006</div></div>
+            <div class="detail-item"><div class="detail-label">Lot Size</div><div class="detail-value">0.13 acres</div></div>
+            <div class="detail-item"><div class="detail-label">Basement</div><div class="detail-value">Crawl Space</div></div>
+            <div class="detail-item"><div class="detail-label">Heating / Cooling</div><div class="detail-value">Central / Central AC</div></div>
+            <div class="detail-item"><div class="detail-label">Fireplace</div><div class="detail-value">1 Fireplace</div></div>
+            <div class="detail-item"><div class="detail-label">Zoning</div><div class="detail-value">RMFP</div></div>
+            <div class="detail-item"><div class="detail-label">Township</div><div class="detail-value">Cedar Fork</div></div>
+          </div>
+          <div class="divider"></div>
+          <div class="section-label">Valuation</div>
+          <div class="details-grid">
+            <div class="detail-item"><div class="detail-label">Land Value (Assessed)</div><div class="detail-value">$140,000</div></div>
+            <div class="detail-item"><div class="detail-label">Building Value (Assessed)</div><div class="detail-value">$500,946</div></div>
+            <div class="detail-item"><div class="detail-label">Total Assessed Value</div><div class="detail-value highlight">$640,946</div></div>
+            <div class="detail-item"><div class="detail-label">Zillow Market Value</div><div class="detail-value market">$687,500</div></div>
+            <div class="detail-item"><div class="detail-label">Last Sale Price</div><div class="detail-value">$331,000</div></div>
+            <div class="detail-item"><div class="detail-label">Last Sale Date</div><div class="detail-value">June 2006</div></div>
+            <div class="detail-item"><div class="detail-label">Deed Date</div><div class="detail-value">September 2024</div></div>
+          </div>
+          <a class="county-link" href="https://services.wake.gov/realestate/Account.asp?id=0331784" target="_blank">🔗 View on Wake County Real Estate</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Property 2: 525 Methven Grove Dr ── -->
+    <div class="property-card" id="prop-2">
+      <div class="card-header" onclick="toggleCard('prop-2')">
+        <div class="card-left">
+          <img class="property-thumb"
+            src="https://maps.googleapis.com/maps/api/streetview?size=144x112&location=525+Methven+Grove+Dr,Cary,NC+27519&fov=80&heading=70&pitch=0&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ"
+            alt="525 Methven Grove Drive">
+          <div class="card-title">
+            <h3>525 Methven Grove Drive</h3>
+            <p>Cary, NC 27519 — Wake County</p>
+          </div>
+        </div>
+        <div class="card-badges">
+          <span class="badge">2,186 sq ft</span>
+          <span class="badge gray">3 bed / 2.5 bath</span>
+          <span class="badge green">~$580,000</span>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="card-body-inner">
+          <div class="section-label">Property Details</div>
+          <div class="details-grid">
+            <div class="detail-item"><div class="detail-label">Property Type</div><div class="detail-value">Single Family Townhouse</div></div>
+            <div class="detail-item"><div class="detail-label">Style</div><div class="detail-value">2-Story Townhouse</div></div>
+            <div class="detail-item"><div class="detail-label">Heated Area</div><div class="detail-value">2,186 sq ft</div></div>
+            <div class="detail-item"><div class="detail-label">Bedrooms</div><div class="detail-value">3</div></div>
+            <div class="detail-item"><div class="detail-label">Bathrooms</div><div class="detail-value">2.5</div></div>
+            <div class="detail-item"><div class="detail-label">Year Built</div><div class="detail-value">2016</div></div>
+            <div class="detail-item"><div class="detail-label">Lot Size</div><div class="detail-value">0.06 acres</div></div>
+            <div class="detail-item"><div class="detail-label">Heating / Cooling</div><div class="detail-value">Central / Central AC</div></div>
+            <div class="detail-item"><div class="detail-label">Zoning</div><div class="detail-value">RMFCU</div></div>
+            <div class="detail-item"><div class="detail-label">Township</div><div class="detail-value">White Oak</div></div>
+          </div>
+          <div class="divider"></div>
+          <div class="section-label">Valuation</div>
+          <div class="details-grid">
+            <div class="detail-item"><div class="detail-label">Land Value (Assessed)</div><div class="detail-value">$130,000</div></div>
+            <div class="detail-item"><div class="detail-label">Building Value (Assessed)</div><div class="detail-value">$452,791</div></div>
+            <div class="detail-item"><div class="detail-label">Total Assessed Value</div><div class="detail-value highlight">$582,791</div></div>
+            <div class="detail-item"><div class="detail-label">Zillow Market Value</div><div class="detail-value market">~$580,000 <span style="font-size:0.7rem;color:#a0aec0">(est.)</span></div></div>
+            <div class="detail-item"><div class="detail-label">Last Sale Price</div><div class="detail-value">$355,000</div></div>
+            <div class="detail-item"><div class="detail-label">Last Sale Date</div><div class="detail-value">December 2017</div></div>
+            <div class="detail-item"><div class="detail-label">Deed Date</div><div class="detail-value">October 2021</div></div>
+          </div>
+          <a class="county-link" href="https://services.wake.gov/realestate/Account.asp?id=0435200" target="_blank">🔗 View on Wake County Real Estate</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Property 3: 4319 Lyman Ave ── -->
+    <div class="property-card" id="prop-3">
+      <div class="card-header" onclick="toggleCard('prop-3')">
+        <div class="card-left">
+          <img class="property-thumb"
+            src="https://maps.googleapis.com/maps/api/streetview?size=144x112&location=4319+Lyman+Ave,Raleigh,NC+27616&fov=80&heading=70&pitch=0&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ"
+            alt="4319 Lyman Ave">
+          <div class="card-title">
+            <h3>4319 Lyman Avenue</h3>
+            <p>Raleigh, NC 27616 — Wake County</p>
+          </div>
+        </div>
+        <div class="card-badges">
+          <span class="badge">2,048 sq ft</span>
+          <span class="badge gray">2.5 bath</span>
+          <span class="badge green">$378,800</span>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="card-body-inner">
+          <div class="section-label">Property Details</div>
+          <div class="details-grid">
+            <div class="detail-item"><div class="detail-label">Property Type</div><div class="detail-value">Single Family</div></div>
+            <div class="detail-item"><div class="detail-label">Style</div><div class="detail-value">2-Story Conventional</div></div>
+            <div class="detail-item"><div class="detail-label">Heated Area</div><div class="detail-value">2,048 sq ft</div></div>
+            <div class="detail-item"><div class="detail-label">Bedrooms</div><div class="detail-value tbd">TBD</div></div>
+            <div class="detail-item"><div class="detail-label">Bathrooms</div><div class="detail-value">2.5</div></div>
+            <div class="detail-item"><div class="detail-label">Year Built</div><div class="detail-value">2013</div></div>
+            <div class="detail-item"><div class="detail-label">Lot Size</div><div class="detail-value">0.13 acres</div></div>
+            <div class="detail-item"><div class="detail-label">Exterior</div><div class="detail-value">Aluminum Vinyl</div></div>
+            <div class="detail-item"><div class="detail-label">Heating / Cooling</div><div class="detail-value">Central / Central AC</div></div>
+            <div class="detail-item"><div class="detail-label">Zoning</div><div class="detail-value">R-6</div></div>
+            <div class="detail-item"><div class="detail-label">Township</div><div class="detail-value">Wake Forest</div></div>
+          </div>
+          <div class="divider"></div>
+          <div class="section-label">Valuation</div>
+          <div class="details-grid">
+            <div class="detail-item"><div class="detail-label">Land Value (Assessed)</div><div class="detail-value">$80,000</div></div>
+            <div class="detail-item"><div class="detail-label">Building Value (Assessed)</div><div class="detail-value">$292,218</div></div>
+            <div class="detail-item"><div class="detail-label">Total Assessed Value</div><div class="detail-value highlight">$372,218</div></div>
+            <div class="detail-item"><div class="detail-label">Zillow Market Value</div><div class="detail-value market">$378,800</div></div>
+            <div class="detail-item"><div class="detail-label">Last Sale Price</div><div class="detail-value">$198,500</div></div>
+            <div class="detail-item"><div class="detail-label">Last Sale Date</div><div class="detail-value">August 2013</div></div>
+            <div class="detail-item"><div class="detail-label">Deed Date</div><div class="detail-value">October 2021</div></div>
+          </div>
+          <a class="county-link" href="https://services.wake.gov/realestate/Account.asp?id=0410919" target="_blank">🔗 View on Wake County Real Estate</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Placeholder for properties 4–6 -->
+
   </div>
 </div>
 
-<div class="section-title">Properties</div>
+<!-- ══════════════════ MEDIA GALLERY TAB ══════════════════ -->
+<div id="tab-gallery" class="tab-content">
+  <div class="gallery-section">
 
-<!-- ── Property Cards ── -->
-<div class="properties" id="properties-list">
-
-  <!-- Property 1: 110 Presidents Walk Ln -->
-  <div class="property-card" id="prop-1">
-    <div class="card-header" onclick="toggleCard('prop-1')">
-      <div class="card-left">
-        <img class="property-thumb" src="110_PRESIDENTS_WALK_LN.jpg" alt="110 Presidents Walk Lane" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="property-thumb-placeholder" style="display:none">🏡</div>
-        <div class="card-title">
-          <h3>110 Presidents Walk Lane</h3>
-          <p>Cary, NC 27519 — Wake County</p>
-        </div>
-      </div>
-      <div class="card-badges">
-        <span class="badge">2,960 sq ft</span>
-        <span class="badge gray">3 bed / 3 bath</span>
-        <span class="badge green">$640,946</span>
-      </div>
-      <span class="toggle-icon">▼</span>
-    </div>
-
-    <div class="card-body">
-      <img class="property-photo" src="110_PRESIDENTS_WALK_LN.jpg" alt="110 Presidents Walk Lane" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="property-photo-placeholder" style="display:none">🏡</div>
-      <div class="card-body-content">
-
-        <div class="section-label">Property Details</div>
-        <div class="details-grid">
-          <div class="detail-item">
-            <div class="detail-label">Property Type</div>
-            <div class="detail-value">Single Family</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Style</div>
-            <div class="detail-value">2-Story Conventional</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Heated Area</div>
-            <div class="detail-value">2,960 sq ft</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Bedrooms</div>
-            <div class="detail-value">3</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Bathrooms</div>
-            <div class="detail-value">3</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Year Built</div>
-            <div class="detail-value">2006</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Lot Size</div>
-            <div class="detail-value">0.13 acres</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Basement</div>
-            <div class="detail-value">Crawl Space</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Heating / Cooling</div>
-            <div class="detail-value">Central / Central AC</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Fireplace</div>
-            <div class="detail-value">1 Fireplace</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Zoning</div>
-            <div class="detail-value">RMFP</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Township</div>
-            <div class="detail-value">Cedar Fork</div>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="section-label">Assessed Value</div>
-        <div class="details-grid">
-          <div class="detail-item">
-            <div class="detail-label">Land Value</div>
-            <div class="detail-value">$140,000</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Building Value</div>
-            <div class="detail-value">$500,946</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Total Assessed Value</div>
-            <div class="detail-value highlight">$640,946</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Last Sale Price</div>
-            <div class="detail-value">$331,000</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Last Sale Date</div>
-            <div class="detail-value">June 2006</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Deed Date</div>
-            <div class="detail-value">September 2024</div>
-          </div>
-        </div>
-
-        <a class="county-link" href="https://services.wake.gov/realestate/Account.asp?id=0331784" target="_blank">
-          🔗 View on Wake County Real Estate
-        </a>
-
+    <!-- Gallery: Property 1 -->
+    <div class="gallery-property">
+      <div class="gallery-property-title">110 Presidents Walk Lane</div>
+      <div class="gallery-property-sub">Cary, NC 27519</div>
+      <div class="gallery-scroll" id="gallery-1">
+        <img class="gallery-img" src="110_PRESIDENTS_WALK_LN.jpg" alt="110 Presidents Walk Lane" onclick="openLightbox(this.src)" onerror="this.replaceWith(makePlaceholder())">
+        <!-- Additional images from folder: 110_PRESIDENTS_WALK_LN/ will be added here -->
       </div>
     </div>
+
+    <!-- Gallery: Property 2 -->
+    <div class="gallery-property">
+      <div class="gallery-property-title">525 Methven Grove Drive</div>
+      <div class="gallery-property-sub">Cary, NC 27519</div>
+      <div class="gallery-scroll" id="gallery-2">
+        <img class="gallery-img" src="525_METHVEN_GROVE_DR.jpg" alt="525 Methven Grove Drive" onclick="openLightbox(this.src)" onerror="this.replaceWith(makePlaceholder())">
+        <!-- Additional images from folder: 525_METHVEN_GROVE_DR/ will be added here -->
+      </div>
+    </div>
+
+    <!-- Gallery: Property 3 -->
+    <div class="gallery-property">
+      <div class="gallery-property-title">4319 Lyman Avenue</div>
+      <div class="gallery-property-sub">Raleigh, NC 27616</div>
+      <div class="gallery-scroll" id="gallery-3">
+        <img class="gallery-img" src="4319_LYMAN_AVE.jpg" alt="4319 Lyman Ave" onclick="openLightbox(this.src)" onerror="this.replaceWith(makePlaceholder())">
+        <!-- Additional images from folder: 4319_LYMAN_AVE/ will be added here -->
+      </div>
+    </div>
+
+    <!-- Placeholders for properties 4–6 will be added here -->
+
   </div>
+</div>
 
-  <!-- Property 2: 525 Methven Grove Dr -->
-  <div class="property-card" id="prop-2">
-    <div class="card-header" onclick="toggleCard('prop-2')">
-      <div class="card-left">
-        <img class="property-thumb" src="525_METHVEN_GROVE_DR.jpg" alt="525 Methven Grove Drive" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="property-thumb-placeholder" style="display:none">🏡</div>
-        <div class="card-title">
-          <h3>525 Methven Grove Drive</h3>
-          <p>Cary, NC 27519 — Wake County</p>
-        </div>
-      </div>
-      <div class="card-badges">
-        <span class="badge">2,186 sq ft</span>
-        <span class="badge gray">2.5 Bath</span>
-        <span class="badge green">$582,791</span>
-      </div>
-      <span class="toggle-icon">▼</span>
-    </div>
-
-    <div class="card-body">
-      <img class="property-photo" src="525_METHVEN_GROVE_DR.jpg" alt="525 Methven Grove Drive" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="property-photo-placeholder" style="display:none">🏡</div>
-      <div class="card-body-content">
-
-        <div class="section-label">Property Details</div>
-        <div class="details-grid">
-          <div class="detail-item">
-            <div class="detail-label">Property Type</div>
-            <div class="detail-value">Single Family Townhouse</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Style</div>
-            <div class="detail-value">2-Story Townhouse</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Heated Area</div>
-            <div class="detail-value">2,186 sq ft</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Bedrooms</div>
-            <div class="detail-value tbd">TBD</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Bathrooms</div>
-            <div class="detail-value">2.5</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Year Built</div>
-            <div class="detail-value">2016</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Lot Size</div>
-            <div class="detail-value">0.06 acres</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Heating / Cooling</div>
-            <div class="detail-value">Central / Central AC</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Zoning</div>
-            <div class="detail-value">RMFCU</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Township</div>
-            <div class="detail-value">White Oak</div>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="section-label">Assessed Value</div>
-        <div class="details-grid">
-          <div class="detail-item">
-            <div class="detail-label">Land Value</div>
-            <div class="detail-value">$130,000</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Building Value</div>
-            <div class="detail-value">$452,791</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Total Assessed Value</div>
-            <div class="detail-value highlight">$582,791</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Last Sale Price</div>
-            <div class="detail-value">$355,000</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Last Sale Date</div>
-            <div class="detail-value">December 2017</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Deed Date</div>
-            <div class="detail-value">October 2021</div>
-          </div>
-        </div>
-
-        <a class="county-link" href="https://services.wake.gov/realestate/" target="_blank">
-          🔗 View on Wake County Real Estate
-        </a>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- Property 3: 4319 Lyman Ave -->
-  <div class="property-card" id="prop-3">
-    <div class="card-header" onclick="toggleCard('prop-3')">
-      <div class="card-left">
-        <img class="property-thumb" src="4319_LYMAN_AVE.jpg" alt="4319 Lyman Ave" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="property-thumb-placeholder" style="display:none">🏡</div>
-        <div class="card-title">
-          <h3>4319 Lyman Avenue</h3>
-          <p>Raleigh, NC 27616 — Wake County</p>
-        </div>
-      </div>
-      <div class="card-badges">
-        <span class="badge">2,048 sq ft</span>
-        <span class="badge gray">2.5 Bath</span>
-        <span class="badge green">$372,218</span>
-      </div>
-      <span class="toggle-icon">▼</span>
-    </div>
-
-    <div class="card-body">
-      <img class="property-photo" src="4319_LYMAN_AVE.jpg" alt="4319 Lyman Ave" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="property-photo-placeholder" style="display:none">🏡</div>
-      <div class="card-body-content">
-
-        <div class="section-label">Property Details</div>
-        <div class="details-grid">
-          <div class="detail-item">
-            <div class="detail-label">Property Type</div>
-            <div class="detail-value">Single Family</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Style</div>
-            <div class="detail-value">2-Story Conventional</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Heated Area</div>
-            <div class="detail-value">2,048 sq ft</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Bedrooms</div>
-            <div class="detail-value tbd">TBD</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Bathrooms</div>
-            <div class="detail-value">2.5</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Year Built</div>
-            <div class="detail-value">2013</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Lot Size</div>
-            <div class="detail-value">0.13 acres</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Exterior</div>
-            <div class="detail-value">Aluminum Vinyl</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Heating / Cooling</div>
-            <div class="detail-value">Central / Central AC</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Zoning</div>
-            <div class="detail-value">R-6</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Township</div>
-            <div class="detail-value">Wake Forest</div>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="section-label">Assessed Value</div>
-        <div class="details-grid">
-          <div class="detail-item">
-            <div class="detail-label">Land Value</div>
-            <div class="detail-value">$80,000</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Building Value</div>
-            <div class="detail-value">$292,218</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Total Assessed Value</div>
-            <div class="detail-value highlight">$372,218</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Last Sale Price</div>
-            <div class="detail-value">$198,500</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Last Sale Date</div>
-            <div class="detail-value">August 2013</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Deed Date</div>
-            <div class="detail-value">October 2021</div>
-          </div>
-        </div>
-
-        <a class="county-link" href="https://services.wake.gov/realestate/" target="_blank">
-          🔗 View on Wake County Real Estate
-        </a>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- Placeholder slots for properties 4–6 -->
-
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close">✕</span>
+  <img id="lightbox-img" src="" alt="">
 </div>
 
 <script>
-  function toggleCard(id) {
-    const card = document.getElementById(id);
-    card.classList.toggle('open');
+  /* ── Tab switching ── */
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    event.target.classList.add('active');
   }
 
-  // Dashboard auto-calculation from property data
+  /* ── Accordion ── */
+  function toggleCard(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  /* ── Lightbox ── */
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+
+  /* ── Gallery placeholder helper ── */
+  function makePlaceholder() {
+    const div = document.createElement('div');
+    div.className = 'gallery-placeholder';
+    div.innerHTML = '🖼️<br><span>No image</span>';
+    return div;
+  }
+
+  /* ── Dashboard calculation ── */
   const properties = [
-    { value: 640946, sqft: 2960, baths: 3,   beds: 3    },
-    { value: 582791, sqft: 2186, baths: 2.5, beds: null },
-    { value: 372218, sqft: 2048, baths: 2.5, beds: null }
+    { assessed: 640946, market: 687500,  sqft: 2960, beds: 3,    baths: 2.5 },
+    { assessed: 582791, market: 580000,  sqft: 2186, beds: 3,    baths: 2.5 },
+    { assessed: 372218, market: 378800,  sqft: 2048, beds: null, baths: 2.5 }
     // More properties will be added here
   ];
 
   function updateDashboard() {
-    const count = properties.length;
-    const totalValue = properties.reduce((s, p) => s + p.value, 0);
-    const totalSqft  = properties.reduce((s, p) => s + p.sqft, 0);
-    const totalBaths = properties.reduce((s, p) => s + p.baths, 0);
+    const count        = properties.length;
+    const totalAssessed = properties.reduce((s, p) => s + p.assessed, 0);
+    const totalMarket  = properties.reduce((s, p) => s + p.market, 0);
+    const totalSqft    = properties.reduce((s, p) => s + p.sqft, 0);
 
-    document.getElementById('stat-count').textContent = count;
-    document.getElementById('stat-value').textContent = '$' + totalValue.toLocaleString();
-    document.getElementById('stat-sqft').textContent  = totalSqft.toLocaleString();
-    document.getElementById('stat-baths').textContent = totalBaths;
+    document.getElementById('stat-count').textContent    = count;
+    document.getElementById('stat-assessed').textContent = '$' + totalAssessed.toLocaleString();
+    document.getElementById('stat-market').textContent   = '$' + totalMarket.toLocaleString();
+    document.getElementById('stat-sqft').textContent     = totalSqft.toLocaleString();
   }
 
   updateDashboard();
