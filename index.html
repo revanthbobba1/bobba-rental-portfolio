@@ -481,7 +481,54 @@
       </div></div>
     </div>
 
-    <!-- Property 6: Durham county property — coming soon -->
+    <!-- Property 6: 2248 Jollay St -->
+    <div class="property-card" id="prop-6">
+      <div class="card-header" onclick="toggleCard('prop-6')">
+        <div class="card-left">
+          <img class="property-thumb" src="images/2248_JOLLAY_ST/main.jpg" alt="2248 Jollay Street" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="property-thumb-placeholder" style="display:none">🏡</div>
+          <div class="card-title">
+            <h3>2248 Jollay Street</h3>
+            <p>Durham, NC 27703 — Durham County</p>
+          </div>
+        </div>
+        <div class="card-badges">
+          <span class="badge">2,854 sq ft</span>
+          <span class="badge gray">3 bed / 2.5 bath</span>
+          <span class="badge green">$549,300</span>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body"><div class="card-body-inner">
+        <div class="section-label">Property Details</div>
+        <div class="details-grid">
+          <div class="detail-item"><div class="detail-label">Property Type</div><div class="detail-value">Single Family</div></div>
+          <div class="detail-item"><div class="detail-label">Style</div><div class="detail-value">2-Story Conventional</div></div>
+          <div class="detail-item"><div class="detail-label">Heated Area</div><div class="detail-value">2,854 sq ft</div></div>
+          <div class="detail-item"><div class="detail-label">Bedrooms</div><div class="detail-value">3</div></div>
+          <div class="detail-item"><div class="detail-label">Bathrooms</div><div class="detail-value">2.5</div></div>
+          <div class="detail-item"><div class="detail-label">Year Built</div><div class="detail-value">2023</div></div>
+          <div class="detail-item"><div class="detail-label">Lot Size</div><div class="detail-value">0.14 acres</div></div>
+          <div class="detail-item"><div class="detail-label">Exterior</div><div class="detail-value">Vinyl / Aluminum</div></div>
+          <div class="detail-item"><div class="detail-label">Foundation</div><div class="detail-value">Continuous Slab</div></div>
+          <div class="detail-item"><div class="detail-label">Heating / Cooling</div><div class="detail-value">Package Heat/Cool</div></div>
+          <div class="detail-item"><div class="detail-label">Garage</div><div class="detail-value">2-Car Attached</div></div>
+          <div class="detail-item"><div class="detail-label">Zoning</div><div class="detail-value">Durham City</div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section-label">Valuation</div>
+        <div class="details-grid">
+          <div class="detail-item"><div class="detail-label">Land Value (Assessed)</div><div class="detail-value">$125,400</div></div>
+          <div class="detail-item"><div class="detail-label">Building Value (Assessed)</div><div class="detail-value">$458,297</div></div>
+          <div class="detail-item"><div class="detail-label">Total Assessed Value</div><div class="detail-value highlight">$583,697</div></div>
+          <div class="detail-item"><div class="detail-label">Zillow Market Value</div><div class="detail-value market">$549,300</div></div>
+          <div class="detail-item"><div class="detail-label">Last Sale Price</div><div class="detail-value">$542,000</div></div>
+          <div class="detail-item"><div class="detail-label">Last Sale Date</div><div class="detail-value">September 2023</div></div>
+          <div class="detail-item"><div class="detail-label">Deed Date</div><div class="detail-value">October 2023</div></div>
+        </div>
+        <a class="county-link" href="https://taxcama.dconc.gov/camapwa/PropertySummary.aspx?PARCELPK=125622&pageIndex=0" target="_blank">🔗 View on Durham County Real Estate</a>
+      </div></div>
+    </div>
 
   </div>
 </div>
@@ -530,7 +577,13 @@
       </div>
     </div>
 
-    <!-- Property 6 gallery — coming soon -->
+    <div class="gallery-property">
+      <div class="gallery-property-title">2248 Jollay Street</div>
+      <div class="gallery-property-sub">Durham, NC 27703</div>
+      <div class="gallery-scroll">
+        <div class="gallery-placeholder">🏡<br><span>No photo available</span></div>
+      </div>
+    </div>
 
   </div>
 </div>
@@ -573,8 +626,8 @@
     { assessed: 582791, market: 580000, sqft: 2186, beds: 3,    baths: 2.5 },
     { assessed: 372218, market: 378800, sqft: 2048, beds: null, baths: 2.5 },
     { assessed: 375554, market: 365000, sqft: 2001, beds: null, baths: 2.5 },
-    { assessed: 512595, market: 546400, sqft: 2280, beds: null, baths: 3   }
-    // Property 6 (Durham) — coming soon
+    { assessed: 512595, market: 546400, sqft: 2280, beds: null, baths: 3   },
+    { assessed: 583697, market: 549300, sqft: 2854, beds: 3,    baths: 2.5 }
   ];
 
   function updateDashboard() {
