@@ -428,11 +428,60 @@
           <div class="detail-item"><div class="detail-label">Last Sale Date</div><div class="detail-value">December 2021</div></div>
           <div class="detail-item"><div class="detail-label">Deed Date</div><div class="detail-value">January 2022</div></div>
         </div>
-        <a class="county-link" href="https://services.wake.gov/realestate/Account.asp?id=0410919" target="_blank">🔗 View on Wake County Real Estate</a>
+        <a class="county-link" href="https://services.wake.gov/realestate/Account.asp?id=0477835" target="_blank">🔗 View on Wake County Real Estate</a>
       </div></div>
     </div>
 
-    <!-- Properties 5–6 will be added here -->
+    <!-- Property 5: 1221 Channing Park Circle -->
+    <div class="property-card" id="prop-5">
+      <div class="card-header" onclick="toggleCard('prop-5')">
+        <div class="card-left">
+          <img class="property-thumb" src="images/1221_CHANNING_PARK_CIR/main.jpg" alt="1221 Channing Park Circle" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="property-thumb-placeholder" style="display:none">🏡</div>
+          <div class="card-title">
+            <h3>1221 Channing Park Circle</h3>
+            <p>Cary, NC 27519 — Wake County</p>
+          </div>
+        </div>
+        <div class="card-badges">
+          <span class="badge">2,280 sq ft</span>
+          <span class="badge gray">3+ bath</span>
+          <span class="badge green">~$546,400</span>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body"><div class="card-body-inner">
+        <div class="section-label">Property Details</div>
+        <div class="details-grid">
+          <div class="detail-item"><div class="detail-label">Property Type</div><div class="detail-value">Single Family Townhouse</div></div>
+          <div class="detail-item"><div class="detail-label">Style</div><div class="detail-value">2-Story, Full Basement</div></div>
+          <div class="detail-item"><div class="detail-label">Heated Area</div><div class="detail-value">2,280 sq ft</div></div>
+          <div class="detail-item"><div class="detail-label">Bedrooms</div><div class="detail-value tbd">TBD</div></div>
+          <div class="detail-item"><div class="detail-label">Bathrooms</div><div class="detail-value">3+</div></div>
+          <div class="detail-item"><div class="detail-label">Year Built</div><div class="detail-value">2021</div></div>
+          <div class="detail-item"><div class="detail-label">Lot Size</div><div class="detail-value">0.05 acres</div></div>
+          <div class="detail-item"><div class="detail-label">Exterior</div><div class="detail-value">Frame</div></div>
+          <div class="detail-item"><div class="detail-label">Basement</div><div class="detail-value">Full (50% partly finished)</div></div>
+          <div class="detail-item"><div class="detail-label">Heating / Cooling</div><div class="detail-value">Central / Central AC</div></div>
+          <div class="detail-item"><div class="detail-label">Zoning</div><div class="detail-value">TRM</div></div>
+          <div class="detail-item"><div class="detail-label">Township</div><div class="detail-value">White Oak</div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section-label">Valuation</div>
+        <div class="details-grid">
+          <div class="detail-item"><div class="detail-label">Land Value (Assessed)</div><div class="detail-value">$140,000</div></div>
+          <div class="detail-item"><div class="detail-label">Building Value (Assessed)</div><div class="detail-value">$372,595</div></div>
+          <div class="detail-item"><div class="detail-label">Total Assessed Value</div><div class="detail-value highlight">$512,595</div></div>
+          <div class="detail-item"><div class="detail-label">Zillow Market Value</div><div class="detail-value market">~$546,400 <span style="font-size:0.7rem;color:#a0aec0">(est.)</span></div></div>
+          <div class="detail-item"><div class="detail-label">Last Sale Price</div><div class="detail-value">$374,500</div></div>
+          <div class="detail-item"><div class="detail-label">Last Sale Date</div><div class="detail-value">September 2021</div></div>
+          <div class="detail-item"><div class="detail-label">Deed Date</div><div class="detail-value">November 2021</div></div>
+        </div>
+        <a class="county-link" href="https://services.wake.gov/realestate/Account.asp?id=0484365" target="_blank">🔗 View on Wake County Real Estate</a>
+      </div></div>
+    </div>
+
+    <!-- Property 6: Durham county property — coming soon -->
 
   </div>
 </div>
@@ -473,7 +522,15 @@
       </div>
     </div>
 
-    <!-- Properties 5–6 galleries will be added here -->
+    <div class="gallery-property">
+      <div class="gallery-property-title">1221 Channing Park Circle</div>
+      <div class="gallery-property-sub">Cary, NC 27519</div>
+      <div class="gallery-scroll">
+        <img class="gallery-img" src="images/1221_CHANNING_PARK_CIR/main.jpg" alt="1221 Channing Park Circle" onclick="openLightbox(this.src)" onerror="this.replaceWith(makePlaceholder())">
+      </div>
+    </div>
+
+    <!-- Property 6 gallery — coming soon -->
 
   </div>
 </div>
@@ -515,8 +572,9 @@
     { assessed: 640946, market: 687500, sqft: 2960, beds: 3,    baths: 2.5 },
     { assessed: 582791, market: 580000, sqft: 2186, beds: 3,    baths: 2.5 },
     { assessed: 372218, market: 378800, sqft: 2048, beds: null, baths: 2.5 },
-    { assessed: 375554, market: 365000, sqft: 2001, beds: null, baths: 2.5 }
-    // Properties 5–6 will be added here
+    { assessed: 375554, market: 365000, sqft: 2001, beds: null, baths: 2.5 },
+    { assessed: 512595, market: 546400, sqft: 2280, beds: null, baths: 3   }
+    // Property 6 (Durham) — coming soon
   ];
 
   function updateDashboard() {
